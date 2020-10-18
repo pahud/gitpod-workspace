@@ -7,7 +7,7 @@ image: jsii/superchain
 
 tasks:
   - before: git remote add awscdk https://github.com/aws/aws-cdk.git && git fetch aws-cdk && git checkout awscdk/master -- package.json
-  - init:  yarn build --skip-test --no-bail --skip-prereqs --skip-compat
+    init:  yarn build --skip-test --no-bail --skip-prereqs --skip-compat
 
 vscode:
   extensions:
