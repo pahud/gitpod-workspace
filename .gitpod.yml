@@ -7,8 +7,7 @@ image: jsii/superchain
 
 tasks:
   - before: curl https://raw.githubusercontent.com/aws/aws-cdk/master/package.json -o package.json
-    init:  yarn build --skip-test --no-bail --skip-prereqs --skip-compat
-
+    init:  yarn install
 vscode:
   extensions:
     - dbaeumer.vscode-eslint@2.1.5:9Wg0Glx/TwD8ElFBg+FKcQ==
