@@ -34,12 +34,12 @@ fi
 
 echo "=> updating ~/.aws/credentials as profile $profile"
 
-access_key_id=$(echo $credentials | perl -n -e'/"AccessKeyId": "([^,]+)"/ && print $1')
-secret_key_id=$(echo $credentials | perl -n -e'/"SecretAccessKey": "([^,]+)"/ && print $1')
-session_token=$(echo $credentials | perl -n -e'/"SessionToken": "([^,]+)"/ && print $1')
+access_key_id=$(echo $credentials | jq -r .Credentials.AccessKeyId)
+secret_access_key=$(echo $credentials | jq -r .Credentials.SecretAccessKey)
+session_token=$(echo $credentials | jq -r .Credentials.SessionToken)
 
 aws configure set --profile "$profile" aws_access_key_id "$access_key_id"
-aws configure set --profile "$profile" aws_secret_access_key "$secret_key_id"
+aws configure set --profile "$profile" aws_secret_access_key "$secret_access_key"
 aws configure set --profile "$profile" aws_session_token "$session_token"
 
 echo "[OK] done"
