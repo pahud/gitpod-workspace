@@ -2,20 +2,24 @@
 
 # This script generates AWS Programmatic Access credentials from a user authenticated via SSO
 # Before using, make sure that the AWS SSO is configured in your CLI: `aws configure sso`
-# The Role ARN can be found in the AWS Console -> IAM -> Roles or via AWS CLI -> `aws iam list-roles`
 
 profile=${AWS_PROFILE-default}
-role_arn="arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_d19a5df50bc77274"
-user_name=$(git config user.name | sed 's/[^A-Za-z0-9+=,.@-]/-/g')
+temp_identity=$(aws --profile "$profile" sts get-caller-identity)
+account_id=$(echo $temp_identity | jq -r .Arn | cut -d: -f5)
+assumed_role_name=$(echo $temp_identity | jq -r .Arn | cut -d/ -f2)
+role_arn="arn:aws:iam::${account_id}:role/aws-reserved/sso.amazonaws.com/${assumed_role_name}"
+session_name=$(echo $temp_identity | jq -r .Arn | cut -d/ -f3)
 
 request_credentials() {
   credentials=$(
     aws sts assume-role \
       --profile $profile \
       --role-arn $role_arn \
-      --role-session-name $user_name
+      --role-session-name $session_name
   )
 }
+
+echo "=> requesting temporary credentials"
 request_credentials
 
 if [ $? -ne 0 ]; then
@@ -28,6 +32,8 @@ if [ $? -ne 0 ]; then
   request_credentials
 fi
 
+echo "=> updating ~/.aws/credentials as profile $profile"
+
 access_key_id=$(echo $credentials | perl -n -e'/"AccessKeyId": "([^,]+)"/ && print $1')
 secret_key_id=$(echo $credentials | perl -n -e'/"SecretAccessKey": "([^,]+)"/ && print $1')
 session_token=$(echo $credentials | perl -n -e'/"SessionToken": "([^,]+)"/ && print $1')
@@ -35,4 +41,6 @@ session_token=$(echo $credentials | perl -n -e'/"SessionToken": "([^,]+)"/ && pr
 aws configure set --profile "$profile" aws_access_key_id "$access_key_id"
 aws configure set --profile "$profile" aws_secret_access_key "$secret_key_id"
 aws configure set --profile "$profile" aws_session_token "$session_token"
+
+echo "[OK] done"
 

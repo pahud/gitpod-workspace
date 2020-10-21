@@ -47,3 +47,22 @@ CLI default client Region [None]: ap-northeast-1
 CLI default output format [None]:                                                                                                                                          
 CLI profile name [AdministratorAccess-123456789012]: default          
 ```
+
+## Request temporary credentials and update ~/.aws/credentials
+
+```sh
+$ bash utils/refresh_credentials.sh 
+=> requesting temporary credentials
+=> updating ~/.aws/credentials as profile default
+[OK] done
+```
+
+## Start your CDK development
+
+You should be able to run the CDK CLI now.
+
+```sh
+$ cdk diff
+$ cdk deploy
+$ cdk destroy
+```
