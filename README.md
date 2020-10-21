@@ -25,10 +25,10 @@ npx projen new awscdk-construct
 aws configure sso
 ```
 
-For example:
+The following example generate the SSO profile with `default` as the profile name:
 
 ```
-$ aws configure sso
+$ aws configure sso --profile default
 SSO start URL [None]: https://pahud-sso.awsapps.com/start                                                                                                                               
 SSO Region [None]: us-east-1                                                                                                                                                            
 Attempting to automatically open the SSO authorization page in your default browser.
@@ -38,14 +38,17 @@ https://device.sso.us-east-1.amazonaws.com/
 
 Then enter the code:
 
-XXXX-XXXX
+DJHN-QKRK
 The only AWS account available to you is: 123456789012
 Using the account ID 123456789012
 The only role available to you is: AdministratorAccess
 Using the role name "AdministratorAccess"
 CLI default client Region [None]: ap-northeast-1                                                                     
-CLI default output format [None]:                                                                                                                                          
-CLI profile name [AdministratorAccess-123456789012]: default          
+CLI default output format [None]:                                                                                    
+
+To use this profile, specify the profile name using --profile, as shown:
+
+aws s3 ls --profile default        
 ```
 
 ## Request temporary credentials and update ~/.aws/credentials
@@ -55,6 +58,11 @@ $ bash utils/refresh_credentials.sh
 => requesting temporary credentials
 => updating ~/.aws/credentials as profile default
 [OK] done
+```
+If you have different SSO profile name, run it with `AWS_PROFILE`:
+
+```sh
+$ AWS_PROFILE=<OTHER_PROFILE_NAME> bash utils/refresh_credentials.sh 
 ```
 
 ## Start your CDK development
