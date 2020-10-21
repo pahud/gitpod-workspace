@@ -7,8 +7,16 @@ profile=${AWS_PROFILE-default}
 temp_identity=$(aws --profile "$profile" sts get-caller-identity)
 account_id=$(echo $temp_identity | jq -r .Arn | cut -d: -f5)
 assumed_role_name=$(echo $temp_identity | jq -r .Arn | cut -d/ -f2)
-role_arn="arn:aws:iam::${account_id}:role/aws-reserved/sso.amazonaws.com/${assumed_role_name}"
 session_name=$(echo $temp_identity | jq -r .Arn | cut -d/ -f3)
+sso_region=$(aws --profile "$profile" configure get sso_region)
+
+if [[ $sso_region == 'us-east-1' ]]; then 
+  sso_region_string=''
+else
+  sso_region_string="${sso_region}/"
+fi
+role_arn="arn:aws:iam::${account_id}:role/aws-reserved/sso.amazonaws.com/${sso_region_string}${assumed_role_name}"
+
 
 request_credentials() {
   credentials=$(
