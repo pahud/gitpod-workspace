@@ -1,5 +1,7 @@
 FROM jsii/superchain
 
+RUN yum install -y jq
+
 RUN npm i -g aws-cdk
 
 RUN mv $(which aws) /usr/bin/aws_V1
