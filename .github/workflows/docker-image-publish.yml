@@ -13,11 +13,13 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: pahud/gitpod-workspace/workspace-image
+          file: .gitpod.Dockerfile
+          tags: user/app:latest
           tag_with_ref: true
 
