@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./gitpod.Dockerfile
+          file: .gitpod.Dockerfile
           push: true
           tags: latest
   
