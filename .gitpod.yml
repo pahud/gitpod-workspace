@@ -3,12 +3,9 @@ github:
     pullRequestsFromForks: true
     addComment: true
     
-image:
-  file: .gitpod.Dockerfile
+image: pahud/gitpod-workspace
+#   file: .gitpod.Dockerfile
 
-# tasks:
-#   - before: curl https://raw.githubusercontent.com/aws/aws-cdk/master/package.json -o package.json
-#     init:  yarn install
 
 vscode:
   extensions:
