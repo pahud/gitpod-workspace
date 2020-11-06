@@ -3,7 +3,7 @@ github:
     pullRequestsFromForks: true
     addComment: true
     
-image: pahud/gitpod-workspace
+image: ghcr.io/pahud/gitpod-workspace:latest
 #   file: .gitpod.Dockerfile
 
 
