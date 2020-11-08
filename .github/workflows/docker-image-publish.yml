@@ -14,6 +14,9 @@ jobs:
     name: Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Get short SHA
+        id: sha
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -36,7 +39,9 @@ jobs:
         with:
           push: true
           file: .gitpod.Dockerfile
-          tags: "${{ env.dockerhub_tag }}"
+          tags: |
+            ${{github.repository}}:latest
+            ${{github.repository}}:${{ steps.sha.outputs.sha8 }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -44,6 +49,9 @@ jobs:
     name: Github Container Registry
     runs-on: ubuntu-latest
     steps:
+      - name: Get short SHA
+        id: sha
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -67,7 +75,9 @@ jobs:
         with:
           push: true
           file: .gitpod.Dockerfile
-          tags: "${{ env.ghcr_tag }}"
+          tags: |
+            ghcr.io/${{github.repository}}:latest
+            ghcr.io/${{github.repository}}:${{ steps.sha.outputs.sha8 }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
