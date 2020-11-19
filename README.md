@@ -22,7 +22,7 @@ npx projen new awscdk-construct
 ## Configure AWS CLI V2 with AWS SSO
 
 ```bash
-aws configure sso
+aws configure sso --profile default
 ```
 
 The following example generate the SSO profile with `default` as the profile name:
@@ -51,19 +51,18 @@ To use this profile, specify the profile name using --profile, as shown:
 aws s3 ls --profile default        
 ```
 
-## Request temporary credentials and update ~/.aws/credentials
+## Configure `credential_process` for the `default` profile
 
 ```sh
-$ bash utils/refresh_credentials.sh 
-=> requesting temporary credentials
-=> updating ~/.aws/credentials as profile default
-[OK] done
+aws configure set credential_process $HOME/utils/aws-sso-credential-process
 ```
-If you have different SSO profile name, run it with `AWS_PROFILE`:
+
+export `AWS_SHARED_CREDENTIALS_FILE` 
 
 ```sh
-$ AWS_PROFILE=<OTHER_PROFILE_NAME> bash utils/refresh_credentials.sh 
+export AWS_SHARED_CREDENTIALS_FILE=~/.aws/config
 ```
+
 
 ## Start your CDK development
 
