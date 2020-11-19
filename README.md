@@ -54,7 +54,7 @@ aws s3 ls --profile default
 ## Configure `credential_process` for the `default` profile
 
 ```sh
-aws configure set credential_process $HOME/utils/aws-sso-credential-process
+aws configure set credential_process ${GITPOD_REPO_ROOT}/utils/aws-sso-credential-process
 ```
 
 export `AWS_SHARED_CREDENTIALS_FILE` 
