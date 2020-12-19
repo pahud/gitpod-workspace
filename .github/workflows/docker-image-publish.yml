@@ -95,5 +95,5 @@ jobs:
         with:
           dockerfile: .gitpod.Dockerfile
           tags: |
-            public.ecr.aws/d7p2r8s3/${{ steps.repoName.outputs.reponame }}:latest
-            public.ecr.aws/d7p2r8s3/${{ steps.repoName.outputs.reponame }}:${{ steps.sha.outputs.sha7 }}
+            public.ecr.aws/pahudnet/${{ steps.repoName.outputs.reponame }}:latest
+            public.ecr.aws/pahudnet/${{ steps.repoName.outputs.reponame }}:${{ steps.sha.outputs.sha7 }}
