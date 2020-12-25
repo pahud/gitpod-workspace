@@ -1,6 +1,6 @@
 FROM jsii/superchain
 
-RUN yum install -y jq
+RUN yum install -y jq sudo docker
 
 RUN npm i -g aws-cdk
 
