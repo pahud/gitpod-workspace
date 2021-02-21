@@ -6,7 +6,10 @@ github:
 image: public.ecr.aws/pahudnet/gitpod-workspace:latest
 #   file: .gitpod.Dockerfile
 tasks:
+  - name: run docker
+    command: sudo docker-up &
   - command: echo "source /usr/share/bash-completion/completions/git" >> $HOME/.bashrc
+
 
 vscode:
   extensions:
