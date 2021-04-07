@@ -4,7 +4,7 @@ This is a workspace template for general AWS CDK development in Gitpod.
 
 Click this button below to open a fresh new CDK development workspace in Gitpod
 
-[![Open in Gitpod](https://camo.githubusercontent.com/1eb1ddfea6092593649f0117f7262ffa8fbd3017/68747470733a2f2f676974706f642e696f2f627574746f6e2f6f70656e2d696e2d676974706f642e737667)](https://gitpod.io/#https://github.com/pahud/gitpod-workspace)
+[![Open in Gitpod](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/pahud/gitpod-workspace)
 
 public dockder image for this codespace:
 
