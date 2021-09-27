@@ -3,6 +3,7 @@ FROM jsii/superchain:node14
 ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl'
 ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
 ARG CRED_PROCESS_URL='https://raw.githubusercontent.com/pahud/vscode/main/.devcontainer/bin/aws-sso-credential-process'
+ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip'
 
 RUN mv $(which aws) /usr/local/bin/awscliv1 && \
   curl "${AWS_CLI_V2_URL}" -o "/tmp/awscliv2.zip" && \
@@ -13,6 +14,12 @@ RUN mv $(which aws) /usr/local/bin/awscliv1 && \
 RUN curl -o kubectl "${KUBECTL_URL}" && \
   chmod +x kubectl && \
   mv kubectl /usr/local/bin
+
+# install terraform
+RUN curl -o terraform.zip "${TERRAFORM_URL}" && \
+  unzip terraform.zip && \
+  mv terraform /usr/local/bin/ && \
+  rm -f terraform.zip
 
 # install aws-sso-credential-process
 RUN cd /usr/local/bin && \
