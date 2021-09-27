@@ -1,26 +1,21 @@
-FROM jsii/superchain
-RUN curl -o /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm http://mirror.centos.org/centos/7/extras/x86_64/Packages/slirp4netns-0.4.3-4.el7_8.x86_64.rpm \
-&& yum install -y jq sudo docker && yum install -y /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm && rm -f /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm
+FROM jsii/superchain:node14
 
-RUN npm i -g aws-cdk
+ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl'
+ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
+ARG CRED_PROCESS_URL='https://raw.githubusercontent.com/pahud/vscode/main/.devcontainer/bin/aws-sso-credential-process'
 
-RUN mv $(which aws) /usr/bin/aws_V1
-
-ARG USERNAME=gitpod
-ARG USER_UID=33333
-ARG USER_GID=33333
-
-# Setup user
-RUN adduser $USERNAME -s /bin/sh -u $USER_UID -U && \
-  mkdir -p /etc/sudoers.d && \
-  echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
-  chmod 0440 /etc/sudoers.d/$USERNAME
-
-# install aws-cli v2
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
-  unzip awscliv2.zip && \
-  ./aws/install
+RUN mv $(which aws) /usr/local/bin/awscliv1 && \
+  curl "${AWS_CLI_V2_URL}" -o "/tmp/awscliv2.zip" && \
+  unzip /tmp/awscliv2.zip -d /tmp && \
+  /tmp/aws/install
 
 # install kubectl
-RUN curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/kubectl \
-  && chmod +x kubectl && mv kubectl /usr/local/bin/
+RUN curl -o kubectl "${KUBECTL_URL}" && \
+  chmod +x kubectl && \
+  mv kubectl /usr/local/bin
+
+# install aws-sso-credential-process
+RUN cd /usr/local/bin && \
+  curl -o aws-sso-credential-process "${CRED_PROCESS_URL}" && \
+  chmod +x aws-sso-credential-process && \
+  aws configure set credential_process /usr/local/bin/aws-sso-credential-process
