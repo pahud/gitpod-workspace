@@ -3,8 +3,8 @@ github:
     pullRequestsFromForks: true
     addComment: true
     
-image: public.ecr.aws/pahudnet/gitpod-workspace:latest
-#   file: .gitpod.Dockerfile
+image: 
+  file: .gitpod.Dockerfile
 tasks:
   - init: ${GITPOD_REPO_ROOT}/utils/init-script.sh
 
