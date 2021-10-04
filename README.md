@@ -72,7 +72,7 @@ aws configure set credential_process ${GITPOD_REPO_ROOT}/utils/aws-sso-credentia
 AWS CLI requires the `~/.aws/credentials` file so we simple touch an empty one to get rid of the warning.
 
 ```sh
-touch ~/.aws/credentials
+touch ~/.aws/credentials && chmod 600 $_
 ```
 
 ## Start your CDK development
