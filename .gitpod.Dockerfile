@@ -3,7 +3,8 @@ FROM jsii/superchain:1-buster-slim
 ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl'
 ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
 ARG CRED_PROCESS_URL='https://raw.githubusercontent.com/pahud/vscode/main/.devcontainer/bin/aws-sso-credential-process'
-ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip'
+ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip'
+
 
 USER root:root
 # install jq wget
