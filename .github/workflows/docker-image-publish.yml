@@ -15,9 +15,6 @@ jobs:
   docker_hub:
     name: Docker Hub
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # needed to interact with GitHub's OIDC Token endpoint.
-      contents: read
     steps:
       - name: Get short SHA
         id: sha
@@ -77,6 +74,9 @@ jobs:
   ecr_public:
     name: ECR Public
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint.
+      contents: read
     steps:
       - name: Get repo name
         id: repoName
