@@ -15,6 +15,9 @@ jobs:
   docker_hub:
     name: Docker Hub
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint.
+      contents: read
     steps:
       - name: Get short SHA
         id: sha
@@ -84,10 +87,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
       - name: Build and Push to ECR Public
         id: build-and-push
