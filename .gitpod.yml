@@ -10,4 +10,4 @@ tasks:
 
 vscode:
   extensions:
-    -  https://github.com/microsoft/vscode-eslint/releases/download/release%2F2.1.24-Insider/vscode-eslint-2.1.24.vsix
+    -  https://github.com/neilkuan/vscode-eslint/releases/download/release%2F2.2.2/vscode-eslint-2.2.2.vsix
