@@ -10,14 +10,6 @@ public dockder image for this codespace:
 
 `public.ecr.aws/pahudnet/gitpod-workspace:latest`
 
-# `awscdk.run` support
-
-Need anything else? Hit the button to install any public CDK app from github with `awscdk.run`.
-
-[![awscdk-run](https://img.shields.io/badge/Deploy%20with-AWSCDK.RUN-blue)](https://awscdk.run)
-
-
-
 
 ## Create AWS CDK App
 
@@ -57,22 +49,15 @@ The only role available to you is: AdministratorAccess
 Using the role name "AdministratorAccess"
 CLI default client Region [None]: ap-northeast-1                                                                     
 CLI default output format [None]:                                                                                    
-
 To use this profile, specify the profile name using --profile, as shown:
 
 aws s3 ls --profile default        
 ```
 
-## Configure `credential_process` for the `default` profile
+## Validate the Identity with AWS CLI
 
-```sh
-aws configure set credential_process ${GITPOD_REPO_ROOT}/utils/aws-sso-credential-process
 ```
-
-AWS CLI requires the `~/.aws/credentials` file so we simple touch an empty one to get rid of the warning.
-
-```sh
-touch ~/.aws/credentials && chmod 600 $_
+$ aws sts get-caller-identity
 ```
 
 ## Start your CDK development
