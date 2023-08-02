@@ -96,7 +96,7 @@ jobs:
           aws-region: us-east-1
       - name: Build and Push to ECR Public
         id: build-and-push
-        uses: pahud/ecr-public-action@1f47a5d3d510344235d004515ced8382b65095d1
+        uses: pahud/ecr-public-action@ca53da9235f82d0f3aa64079540a1e7885ad47d1
         with:
           dockerfile: .gitpod.Dockerfile
           tags: |
