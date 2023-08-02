@@ -1,4 +1,4 @@
-FROM jsii/superchain:1-buster-slim-node14
+FROM public.ecr.aws/jsii/superchain:1-buster-slim-node18
 
 ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl'
 ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
